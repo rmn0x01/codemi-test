@@ -120,6 +120,7 @@ func find_data(no_identitas string){
 }
 
 func main() {
+	fmt.Println("===Program Loker===")
 	lowest_index = 0
 	init_loker()
 
