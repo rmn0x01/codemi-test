@@ -1,3 +1,4 @@
+#variabel global
 loker = []
 lowest_index = 0
 
@@ -25,7 +26,8 @@ def get_status():
     for i in range(len(loker)):
         print(str(i+1)+'\t'+'\t'+loker[i][0]+'\t\t'+loker[i][1])
 
-def get_lowest_index(lowest_index):
+def get_lowest_index():
+    global lowest_index
     updated = False
     for i in range(lowest_index,len(loker)):
         if(loker[i][1]==''):
@@ -43,13 +45,13 @@ def input_data(tipe,nomor):
         loker[lowest_index][0] = tipe
         loker[lowest_index][1] = nomor
         print("Kartu identitas tersimpan di loker nomor",str(lowest_index+1))
-        lowest_index = get_lowest_index(lowest_index)
+        get_lowest_index()
     else:
         print("Maaf loker sudah penuh")
 
 def delete_data(no_loker):
     global loker, lowest_index
-    if(no_loker.isdigit()):
+    if(no_loker.isdigit() and no_loker!='0'):
         no_loker = int(no_loker)
         if(no_loker>len(loker)):
             print("Tidak ada loker dengan nomor", no_loker)
@@ -62,7 +64,7 @@ def delete_data(no_loker):
                 lowest_index=(no_loker-1)
             print("Loker nomor",no_loker,"berhasil dikosongkan")
     else:
-        print("Nomor loker harus berupa angka")
+        print("Nomor loker harus berupa angka positif")
 
 def find_data(no_identitas):
     global loker
@@ -77,7 +79,7 @@ def find_data(no_identitas):
 
 def main():
     init_loker()
-    
+    #navigasi utama
     running = True
     while(running):
         command = input().split()
