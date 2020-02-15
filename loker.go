@@ -8,11 +8,16 @@ import (
 	"strconv"
 )
 
-var tipe []string
-var nomor []string
+//deklarasi variabel global
+var tipe []string 
+//nomor identitas tetap di-set string, karena ada beberapa contoh nomor identitas tidak
+//hanya numerik (contoh: Nomor Mahasiswa 16/XX/12321)
+var nomor []string 
+//Slice tipe dan slice nomor dipisah karena pemahaman akan multidimensional slice masih terbatas
 var lowest_index int
 
 func init_loker(){
+	//selama loker belum diinisialisasi, loop ini akan terus dijalankan
 	for len(tipe) == 0 {
 		scanner := bufio.NewScanner(os.Stdin)
 		scanner.Scan()
@@ -58,6 +63,7 @@ func get_lowest_index(){
 			break
 		}
 	}
+	//jika loop di atas tidak tereksekusi, updated tetap false, menandakan loker sudah penuh
 	if !updated {
 		lowest_index = -1
 	}
@@ -68,6 +74,7 @@ func input_data(input_tipe string, input_nomor string){
 		tipe[lowest_index] = input_tipe
 		nomor[lowest_index] = input_nomor
 		fmt.Println("Kartu identitas tersimpan di loker nomor", strconv.Itoa(lowest_index+1))
+		//perbarui lowest index setiap selesai input data
 		get_lowest_index()
 	} else {
 		fmt.Println("Maaf loker sudah penuh")
@@ -90,11 +97,15 @@ func delete_data(no_loker string){
 			fmt.Println("Loker nomor", no_loker, "berhasil dikosongkan")
 		}
 	} else {
+		//kegagalan melakukan konversi no_loker ke tipe data integer maupun
+		//angka yang dimasukkan negatif akan mentrigger baris kode ini
 		fmt.Println("Nomor loker harus berupa angka positif")
 	}
 }
 
 func find_data(no_identitas string){
+	//asumsi nomor identitas bisa duplikat, sehingga disiapkan array found
+	//untuk kasus nomor identitas yang dicari, ketemu lebih dari satu
 	var found[] string
 	for i:= range nomor {
 		if nomor[i] == no_identitas {

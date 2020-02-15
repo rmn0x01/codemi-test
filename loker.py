@@ -5,6 +5,7 @@ lowest_index = 0
 #inisialisasi n loker
 def init_loker():
     global loker
+    #selama loker belum diinisialisasi, baris kode while akan selalu dieksekusi
     while(len(loker)==0):
         command = input().split()
         try:
@@ -34,6 +35,7 @@ def get_lowest_index():
             updated = True
             lowest_index = i
             break
+    #jika variabel updated tetap false, maka loker sudah penuh
     if(not updated):
         lowest_index = -1
     return lowest_index
@@ -45,12 +47,15 @@ def input_data(tipe,nomor):
         loker[lowest_index][0] = tipe
         loker[lowest_index][1] = nomor
         print("Kartu identitas tersimpan di loker nomor",str(lowest_index+1))
+        #perbarui lowest index setiap input data
         get_lowest_index()
     else:
         print("Maaf loker sudah penuh")
 
 def delete_data(no_loker):
     global loker, lowest_index
+    #pengecekan no_loker!='0' karena alasan perbedaan error message, meskipun secara 
+    #teknis tidak perlu
     if(no_loker.isdigit() and no_loker!='0'):
         no_loker = int(no_loker)
         if(no_loker>len(loker)):
@@ -68,6 +73,7 @@ def delete_data(no_loker):
 
 def find_data(no_identitas):
     global loker
+    # nomor identitas diasumsikan bisa duplikat, sehingga disiapkan list kosong found
     found = []
     for i in range(len(loker)):
         if(loker[i][1] == no_identitas):
