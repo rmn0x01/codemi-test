@@ -1,3 +1,5 @@
+import sys
+
 #variabel global
 loker = []
 lowest_index = 0
@@ -8,6 +10,8 @@ def init_loker():
     #selama loker belum diinisialisasi, baris kode while akan selalu dieksekusi
     while(len(loker)==0):
         command = input().split()
+        if(command[0].lower() == 'exit'):
+            sys.exit()
         try:
             if(command[0].lower() == 'init'):
                 if(int(command[1])<1):
@@ -84,6 +88,7 @@ def find_data(no_identitas):
         print("Kartu identitas tersebut berada di loker nomor "+", ".join(found))
 
 def main():
+    print("===Program Loker===")
     init_loker()
     #navigasi utama
     running = True
